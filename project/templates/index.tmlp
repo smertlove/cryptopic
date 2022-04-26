@@ -1,0 +1,732 @@
+<% c++ #include "./project/content/index.h" %>
+<% skin index_skin %>
+<% view index uses content::Index %>
+
+<% template render() %>
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="root no-js">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="./js/app-modernizr.js"></script>
+  <title><%= title %></title>
+  <style>
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+picture img {
+  display: block;
+}
+
+.visuallyhidden:not(:focus):not(:active) {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  white-space: nowrap;
+  border: 0;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+}
+
+.skiptocontent {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 15px;
+  text-decoration: none;
+  color: white;
+  background-color: #DD5E5E;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "CascadiaMono";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/CascadiaMonoPL-Regular.woff2") format("woff2"), url("../fonts/CascadiaMonoPL-Regular.woff") format("woff");
+  font-display: swap;
+}
+
+body {
+  font-family: "CascadiaMono", "Arial", sans-serif;
+  color: white;
+}
+
+:focus-visible {
+  outline: 0;
+  outline: 2px solid #DD5E5E;
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: 1920px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.account-nav {
+  margin-left: auto;
+  align-self: flex-end;
+}
+
+.account-nav_list {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 15px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #043D2A;
+  border: none;
+  font-family: "CascadiaMono", "Arial", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+.btn:hover {
+  opacity: 0.6;
+}
+
+.btn:active {
+  opacity: 0.3;
+}
+
+.toggle {
+  position: relative;
+  -webkit-appearance: none;
+  outline: none;
+  width: 40px;
+  height: 20px;
+  background-color: white;
+  border: 3px solid white;
+  border-radius: 10px;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.toggle::after {
+  transition-duration: 0.5s;
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  background-color: #043D2A;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-image: url("../img/lock.svg");
+  background-position: 55% 45%;
+  background-repeat: no-repeat;
+  background-size: 10px;
+}
+
+.toggle:checked::after {
+  width: 36px;
+  background-image: url("../img/key.svg");
+  background-size: 13px;
+}
+
+.encryption {
+  height: calc(100vh - 130px);
+  min-height: 500px;
+}
+
+.encryption_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.encryption_form--encrypt.encryption_form--step-1 .encryption_text--text {
+  display: block;
+}
+
+.encryption_form--encrypt.encryption_form--step-1 .encryption_input-file-wrap {
+  display: none;
+}
+
+.encryption_form--encrypt.encryption_form--step-1 .encryption_input-text-wrap {
+  display: flex;
+}
+
+.encryption_form--encrypt.encryption_form--step-1 .encryption_header::before {
+  content: attr(first-data);
+}
+
+.encryption_form--encrypt.encryption_form--step-2 .encryption_text--img {
+  display: block;
+}
+
+.encryption_form--encrypt.encryption_form--step-2 .encryption_input-file-wrap {
+  display: flex;
+}
+
+.encryption_form--encrypt.encryption_form--step-2 .encryption_input-text-wrap {
+  display: none;
+}
+
+.encryption_form--encrypt.encryption_form--step-2 .encryption_header::before {
+  content: attr(second-data);
+}
+
+.encryption_form--encrypt.encryption_form--step-2 .encryption_btn--back {
+  display: block;
+}
+
+.encryption_form--decipher .encryption_input-text-wrap {
+  display: none;
+}
+
+.encryption_form--decipher .encryption_header {
+  display: none;
+}
+
+.encryption_form--decipher .encryption_text--img {
+  display: block;
+}
+
+.encryption_form--uploaded.encryption_form--step-2 .encryption_text--img, .encryption_form--uploaded.encryption_form--step-1 .encryption_text--img {
+  display: none;
+}
+
+.encryption_form--uploaded.encryption_form--step-2 .encryption_text--text, .encryption_form--uploaded.encryption_form--step-1 .encryption_text--text {
+  display: none;
+}
+
+.encryption_form--uploaded.encryption_form--step-2 .encryption_text--uploaded, .encryption_form--uploaded.encryption_form--step-1 .encryption_text--uploaded {
+  display: block;
+}
+
+.encryption_text-wrapper {
+  order: 2;
+}
+
+.encryption_header {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  order: 1;
+}
+
+.encryption_text {
+  text-align: center;
+  font-size: 14px;
+  display: none;
+}
+
+.encryption_label {
+  font-size: 20px;
+}
+
+.encryption_label {
+  content: "dasads";
+}
+
+.encryption_toggle-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.encryption_toggle:checked ~ .encryption_toggle-label:after {
+  font-size: 20px;
+  content: attr(data-on);
+}
+
+.encryption_toggle ~ .encryption_toggle-label:after {
+  font-size: 20px;
+  content: attr(data-off);
+}
+
+.encryption_input-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 500px 1fr;
+  align-items: center;
+  gap: 20px;
+  height: 300px;
+  background-image: url("../img/key-hole.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20%;
+  margin-bottom: 20px;
+}
+
+.encryption_input-text-wrapper--img {
+  background-size: 10%;
+  grid-template-columns: 1fr 300px 1fr;
+}
+
+.encryption_input-text-wrap {
+  display: flex;
+}
+
+.encryption_input-text {
+  width: 100%;
+}
+
+.encryption_input {
+  grid-column: 2 / 3;
+}
+
+.encryption_btn {
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  grid-row: 1 / 2;
+}
+
+.encryption_btn:hover {
+  opacity: 0.6;
+}
+
+.encryption_btn:active {
+  opacity: 0.3;
+}
+
+.encryption_btn--back {
+  grid-column: 1 / 2;
+  display: none;
+}
+
+.encryption_btn--key {
+  -webkit-animation: name 1s infinite alternate ease-in;
+  animation: name 1s infinite alternate ease-in;
+  grid-column: 3 / 4;
+}
+
+@-webkit-keyframes name {
+  0% {
+    padding: 0 5px;
+  }
+  100% {
+    padding: 0 0 0 10px;
+  }
+}
+
+@keyframes name {
+  0% {
+    padding: 0 5px;
+  }
+  100% {
+    padding: 0 0 0 10px;
+  }
+}
+
+.encryption_input-file-wrap {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  gap: 60px;
+  align-items: baseline;
+  padding: 50px 75px;
+}
+
+.header__logo {
+  font-size: 30px;
+}
+
+.header__logo--accent {
+  color: #96E4DF;
+}
+
+.info {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info__title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.info__text {
+  font-weight: 400;
+  text-align: center;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.38);
+  padding: 30px 60px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.info__how {
+  margin-bottom: 30px;
+}
+
+.info__how-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.info__how-scheme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 20px;
+}
+
+.info__how-scheme-icon {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.info__how-scheme-icon::after {
+  content: attr(data-count);
+  font-size: 36px;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.info__how-scheme-icon:nth-child(2)::before {
+  content: "+";
+  font-size: 36px;
+  top: 30px;
+  left: -40px;
+  position: absolute;
+}
+
+.info__how-scheme-icon:last-child::before {
+  content: "=";
+  font-size: 36px;
+  top: 30px;
+  left: -40px;
+  position: absolute;
+}
+
+.info__how-scheme-icon:hover::after {
+  opacity: 0.6;
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.info__how-scheme-icon:active::after {
+  opacity: 0.3;
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.info__how-scheme-icon--active::after {
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.info__how-text {
+  padding: 90px 70px 20px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  display: none;
+  position: relative;
+}
+
+.info__how-text::after {
+  content: "1";
+  font-size: 36px;
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.info__how-text--active {
+  display: block;
+}
+
+.input-file {
+  background: none;
+  display: block;
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+  border-radius: 36%;
+  opacity: 0;
+  position: relative;
+}
+
+.encryption_input-file-label {
+  position: relative;
+}
+
+.encryption_input-file-label::after {
+  width: 300px;
+  height: 300px;
+  top: 0;
+  left: 0;
+  background-image: url("../img/dashed-border.svg");
+  content: "";
+  display: block;
+  position: absolute;
+  opacity: 1;
+}
+
+.encryption_form--uploaded .encryption_input-file-label::before {
+  width: 150px;
+  height: 150px;
+  margin: 70px;
+  background-image: url("../img/picture-icon.svg"), url("../img/loading.svg");
+  background-repeat: no-repeat;
+  background-color: #1CA574;
+  background-size: auto auto 70%;
+  background-position: center;
+  box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 36%;
+  content: "";
+  display: block;
+  position: absolute;
+  opacity: 1;
+}
+
+.input-text {
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  padding: 10px 15px;
+  font-family: "CascadiaMono", "Arial", sans-serif;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link:hover {
+  opacity: 0.6;
+}
+
+.link:active {
+  opacity: 0.3;
+}
+
+.main-nav_list {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  font-size: 24px;
+}
+
+.page {
+  background-image: linear-gradient(120deg, #016753, #19E48B);
+  background-size: 100vw 100vh;
+  background-attachment: fixed;
+}
+
+/*# sourceMappingURL=main.css.map */
+
+  </style>
+</head>
+
+<body class="page">
+  <a href="#maincontent" class="visuallyhidden skiptocontent">Skip to main content</a>
+  <header class="header page__header">
+    <b class="header__logo">
+      <a>crypto<span class="header__logo--accent">pic</span></a>
+    </b>
+    <nav class="main-nav">
+      <ul class="main-nav_list">
+        <li class="main-nav_item">
+          <a class="main-nav_link link" href="#">info</a>
+        </li>
+        <li class="main-nav_item">
+          <a class="main-nav_link link" href="#">more</a>
+        </li>
+        <li class="main-nav_item">
+          <a class="main-nav_link link" href="#">about</a>
+        </li>
+      </ul>
+    </nav>
+    <nav class="account-nav">
+      <ul class="account-nav_list">
+        <li class="account-nav_item">
+          <a class="account-nav_link link" href="#">
+            <span class="visuallyhidden">настройки аккаунта</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 0 24 24" width="24" fill="currentColor" role="img" aria-label="Аккаунт"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+          </a>
+        </li>
+        <li class="account-nav_item">
+          <a class="account-nav_link link" href="#">
+            <span class="visuallyhidden">переключить тему</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 0 24 24" width="24" fill="currentColor" role="img" aria-label="Переключить тему"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6z"/></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="maincontent">
+    <section class="encryption">
+      <h1 class="visuallyhidden">шифрование и дешифрование</h1>
+      <form class="encryption_form encryption_form--encrypt encryption_form--step-1 encryption_form--server-loading" action="https://echo.htmlacademy.ru/courses" method="post">
+        <h2 class="encryption_header" first-data="1" second-data="2"> шаг</h2>
+
+        <div class="encryption_text-wrapper">
+          <p class="encryption_text encryption_text--text"><label for="encryption_input-text">введите <br> секретное <br> сообщение</label></p>
+          <p class="encryption_text encryption_text--img">прикрепите <br> изображение</p>
+          <p class="encryption_text encryption_text--uploaded">изображение <br> загружено</p>
+        </div>
+
+        <p class="encryption_toggle-wrapper">
+          <input class="encryption_toggle toggle" type="checkbox" id="encryption_toggle" off="зашифровать" data-on="расшифровать">
+          <label class="encryption_toggle-label" for="encryption_toggle" data-off="зашифровать" data-on="расшифровать"><span class="visuallyhidden">зашифровать или расшифровать</span></label>
+        </p>
+
+        <div class="encryption_input-wrapper encryption_input-text-wrapper--img">
+          <div class="encryption_input">
+            <div class="encryption_input-file-wrap">
+              <label class="encryption_input-file-label" for="file-input"></label>
+              <input class="encryption_input-file input-file" type="file" name="file-input" placeholder="секретное сообщение">
+            </div>
+            <div class="encryption_input-text-wrap">
+              <input class="encryption_input-text input-text" type="text" name="encryption-input-text" id="encryption_input-text" placeholder="секретное сообщение">
+            </div>
+          </div>
+          <button class="encryption_btn encryption_btn--back" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="36" viewbox="0 6 48 36" fill="white"><path d="M17.95 35.9 6 23.95 17.95 12 20.1 14.15 11.8 22.45H42V25.45H11.8L20.1 33.75Z"/></svg>
+          </button>
+          <button class="encryption_btn encryption_btn--key" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 0 24 24" width="24" fill="white"><path d="M0 0h24v24H0z" fill="none"/><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+          </button>
+        </div>
+      </form>
+    </section>
+    <section class="info">
+      <h2 class="info__title">основная информация</h2>
+      <p class="info__text">cтеганография — способ передачи или хранения информации, позволяющая спрятать передаваемые данные в некотором контейнере, таким образом скрыв сам факт передачи информации.</p>
+      <section class="info__how info__how--encrypt">
+        <h3 class="info__how-title">как зашифровать сообщение?</h3>
+        <div class="info__how-scheme">
+          <div class="info__how-scheme-icon info__how-scheme-icon--active" data-count="1">
+            <svg height="90" width="90" viewbox="0 0 48 48" fill="white">
+              <path d="M15.95 35.5H32.05V32.5H15.95ZM15.95 27H32.05V24H15.95ZM11 44Q9.8 44 8.9 43.1Q8 42.2 8 41V7Q8 5.8 8.9 4.9Q9.8 4 11 4H29.05L40 14.95V41Q40 42.2 39.1 43.1Q38.2 44 37 44ZM27.55 16.3V7H11Q11 7 11 7Q11 7 11 7V41Q11 41 11 41Q11 41 11 41H37Q37 41 37 41Q37 41 37 41V16.3ZM11 7V16.3V7V16.3V41Q11 41 11 41Q11 41 11 41Q11 41 11 41Q11 41 11 41V7Q11 7 11 7Q11 7 11 7Z"/>
+            </svg>
+          </div>
+          <div class="info__how-scheme-icon" data-count="2">
+            <svg height="90" width="90" viewbox="0 0 48 48" fill="white">
+              <path d="M11.8 34.15H36.25L28.9 24.35L22.3 32.9L17.65 26.55ZM9 42Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6H39Q40.2 6 41.1 6.9Q42 7.8 42 9V39Q42 40.2 41.1 41.1Q40.2 42 39 42ZM9 39H39Q39 39 39 39Q39 39 39 39V9Q39 9 39 9Q39 9 39 9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39ZM9 9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39Q9 39 9 39Q9 39 9 39V9Q9 9 9 9Q9 9 9 9Z"/>
+            </svg>
+          </div>
+          <div class="info__how-scheme-icon" data-count="3">
+            <svg height="90" width="90" viewbox="0 0 48 48" fill="white">
+              <path d="M11.8 34.15H36.25L28.9 24.35L22.3 32.9L17.65 26.55ZM9 42Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6H39Q40.2 6 41.1 6.9Q42 7.8 42 9V39Q42 40.2 41.1 41.1Q40.2 42 39 42ZM9 39H39Q39 39 39 39Q39 39 39 39V9Q39 9 39 9Q39 9 39 9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39ZM9 9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39Q9 39 9 39Q9 39 9 39V9Q9 9 9 9Q9 9 9 9Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="info__how-text info__how-text--1  info__how-text--active">напишите сообщение, которое вы хотите зашифровать</div>
+        <div class="info__how-text info__how-text--2">выберите картинку, в которой будет спрятано сообщение</div>
+        <div class="info__how-text info__how-text--3">скакчайте картинку, в которой теперь хранится ваше сообщение</div>
+      </section>
+      <section class="info__how info__how--decipher">
+        <h3 class="info__how-title">как расашифровать сообщение?</h3>
+        <div class="info__how-scheme">
+          <div class="info__how-scheme-icon info__how-scheme-icon--active" data-count="1">
+            <svg height="90" width="90" viewbox="0 0 48 48" fill="white">
+              <path d="M11.8 34.15H36.25L28.9 24.35L22.3 32.9L17.65 26.55ZM9 42Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6H39Q40.2 6 41.1 6.9Q42 7.8 42 9V39Q42 40.2 41.1 41.1Q40.2 42 39 42ZM9 39H39Q39 39 39 39Q39 39 39 39V9Q39 9 39 9Q39 9 39 9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39ZM9 9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39Q9 39 9 39Q9 39 9 39V9Q9 9 9 9Q9 9 9 9Z"/>
+            </svg>
+          </div>
+          <div class="info__how-scheme-icon" data-count="2">
+            <svg height="90" width="90" viewbox="0 0 48 48" fill="white">
+              <path d="M15.95 35.5H32.05V32.5H15.95ZM15.95 27H32.05V24H15.95ZM11 44Q9.8 44 8.9 43.1Q8 42.2 8 41V7Q8 5.8 8.9 4.9Q9.8 4 11 4H29.05L40 14.95V41Q40 42.2 39.1 43.1Q38.2 44 37 44ZM27.55 16.3V7H11Q11 7 11 7Q11 7 11 7V41Q11 41 11 41Q11 41 11 41H37Q37 41 37 41Q37 41 37 41V16.3ZM11 7V16.3V7V16.3V41Q11 41 11 41Q11 41 11 41Q11 41 11 41Q11 41 11 41V7Q11 7 11 7Q11 7 11 7Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="info__how-text info__how-text--1  info__how-text--active">отправьте изображение, в котором зашифровано сообщение</div>
+        <div class="info__how-text info__how-text--2">прочитайте сообщение, которое было зашифровано в картинке</div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer page__footer">
+
+  </footer>
+
+  <script src="js/app-libs.js" charset="utf-8"></script>
+  <script src="js/app.js" charset="utf-8"></script>
+</body>
+
+</html>
+<% end template %>
+
+<% end view %>
+<% end skin %>
