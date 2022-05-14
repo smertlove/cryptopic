@@ -4,7 +4,7 @@ all: build run_server
 
 
 build_skin:
-	cppcms_tmpl_cc ./project/templates/index.tmlp -o index_skin.cpp
+	cppcms_tmpl_cc ./project/templates/index.tmpl -o index_skin.cpp
 
 build:
 	make build_skin

@@ -1,9 +1,15 @@
-{  
-    "service" : {  
-        "api" : "http",  
-        "port" : 8080  
-    },  
-    "http" : {  
-        "script_names" : [ "/index" ]  
-    }  
-}  
+{
+    "service" : {
+        "api" : "http",
+        "port" : 8080
+    },
+    "http" : {
+        "script_names" : [ "/index" ],
+        "skins" : ["index_skin"]
+    },
+    "file_server" : {
+        "enable" : true,
+        "listing" : true,
+        "document_root" : "./project/static"
+    }
+}
