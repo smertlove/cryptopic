@@ -8,7 +8,7 @@ build_skin:
 
 build:
 	make build_skin
-	g++ project/hello.cpp index_skin.cpp -o hello -lcppcms -lbooster
+	g++ project/main.cpp index_skin.cpp -o main -lcppcms -lbooster
 
 run_server:
-	./hello -c ./project/config.json
+	./main -c ./project/config.json
