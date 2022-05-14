@@ -4,7 +4,7 @@
         "port" : 8080
     },
     "http" : {
-        "script_names" : [ "/index" ],
+        "script_names" : [ "/index", "/rpc" ],
         "skins" : ["index_skin"]
     },
     "file_server" : {

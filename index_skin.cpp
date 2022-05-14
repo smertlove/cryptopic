@@ -34,7 +34,7 @@ namespace index_skin {
 				"  <title>";
 			#line 14 "./project/templates/index.tmpl"
 			out()<<cppcms::filters::escape(content.title);
-			#line 150 "./project/templates/index.tmpl"
+			#line 163 "./project/templates/index.tmpl"
 			out()<<"</title>\r\n"
 				"</head>\r\n"
 				"\r\n"
@@ -164,7 +164,20 @@ namespace index_skin {
 				"  <script src=\"js/app-libs.js\" charset=\"utf-8\"></script>\r\n"
 				"  <script src=\"js/app.js\" charset=\"utf-8\"></script>\r\n"
 				"  <script>\r\n"
-				"  var test_item = document.getElementById(\"TEST_ITEM\");\r\n"
+				"  function test_call(){\r\n"
+				"    let xhr = new XMLHttpRequest();\r\n"
+				"    xhr.open(\"post\", '/rpc');\r\n"
+				"    xhr.setRequestHeader(\"Content-Type\",\"application/json\");\r\n"
+				"    let req = '{\"hello\":\"Hello, cppCMS!!\"'\r\n"
+				"    xhr.onreadystatechange = function() {\r\n"
+				"        var result = xhr.responseText; \r\n"
+				"        console.log(result.result)\r\n"
+				"    }\r\n"
+				"    xhr.send(req); \r\n"
+				"}\r\n"
+				"\r\n"
+				"var test_item = document.getElementById(\"TEST_ITEM\");\r\n"
+				"test_item.onclick = test_call;\r\n"
 				"  </script>\r\n"
 				"</body>\r\n"
 				"\r\n"
@@ -172,39 +185,39 @@ namespace index_skin {
 				"\r\n"
 				"\r\n"
 				"";
-		#line 150 "./project/templates/index.tmpl"
+		#line 163 "./project/templates/index.tmpl"
 		} // end of template render
-	#line 152 "./project/templates/index.tmpl"
+	#line 165 "./project/templates/index.tmpl"
 	private:
-	#line 152 "./project/templates/index.tmpl"
+	#line 165 "./project/templates/index.tmpl"
 		int _domain_id;
-	#line 152 "./project/templates/index.tmpl"
+	#line 165 "./project/templates/index.tmpl"
 	}; // end of class index
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
 } // end of namespace index_skin
 #line 2 "./project/templates/index.tmpl"
 namespace index_skin {
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
 } // end of namespace index_skin
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
 namespace {
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
  cppcms::views::generator my_generator; 
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
  struct loader { 
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
   loader() { 
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
    my_generator.name("index_skin");
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
    my_generator.add_view<index_skin::index,content::Index>("index",true);
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
     cppcms::views::pool::instance().add(my_generator);
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
  }
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
  ~loader() {  cppcms::views::pool::instance().remove(my_generator); }
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
 } a_loader;
-#line 153 "./project/templates/index.tmpl"
+#line 166 "./project/templates/index.tmpl"
 } // anon 

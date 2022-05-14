@@ -140,7 +140,20 @@
   <script src="js/app-libs.js" charset="utf-8"></script>
   <script src="js/app.js" charset="utf-8"></script>
   <script>
-  var test_item = document.getElementById("TEST_ITEM");
+  function test_call(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("post", '/rpc');
+    xhr.setRequestHeader("Content-Type","application/json");
+    let req = '{"hello":"Hello, cppCMS!!"'
+    xhr.onreadystatechange = function() {
+        var result = xhr.responseText; 
+        console.log(result.result)
+    }
+    xhr.send(req); 
+}
+
+var test_item = document.getElementById("TEST_ITEM");
+test_item.onclick = test_call;
   </script>
 </body>
 
